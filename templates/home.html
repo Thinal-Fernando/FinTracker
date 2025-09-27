@@ -13,13 +13,14 @@
   <div class="expence-container" >
     <div class="card-header">Add Expense</div>
     <div class="card-body">
-      <form class="space-y-3">
+      <form class="space-y-3" action="{{url_for('add_expense')}}" method="POST">
         <label class="block text-sm">
           <span class="mb-1 block text-slate-300">Description</span>
           <input
             placeholder="e.g., Groceries"
             class="w-full rounded-xl bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100"
             style="border-radius: 10px"
+            name="description" 
           />
         </label>
         <div class="grid grid-cols-2 gap-3">
@@ -27,6 +28,7 @@
             <span class="mb-1 block text-slate-300">Amount</span>
             <input
               type="number"
+              name="amount"
               step="0.01"
               min="0.01"
               placeholder="25.00"
@@ -37,6 +39,7 @@
             <span class="mb-1 block text-slate-300">Date</span>
             <input
               type="date"
+              name="date"
               class="w-full rounded-xl bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100"
             />
           </label>
@@ -54,7 +57,7 @@
         <div class="d-grid gap-2">
           <button
             class="btn btn-lg btn-primary"
-            type="button"
+            type="submit"
             fdprocessedid="t4p5e9"
           >
             Add Expense

@@ -1,0 +1,19 @@
+body {
+  background-color: rgb(22, 21, 72);
+}
+
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-height: 80px;
+}
+
+a {
+  font-weight: bolder;
+  font-size: 10px;
+}
+
+#navbarColor01 {
+  margin-right: 2%;
+  color: rgb(189, 189, 189);
+}

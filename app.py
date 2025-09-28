@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+from dashboard import create_dashboard
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'er7gh93478htuinfs9g834'
@@ -38,6 +38,7 @@ def add_expense():
 
         return redirect(url_for('index'))
 
+create_dashboard(app)
 
 if __name__ == '__main__':
     with app.app_context():

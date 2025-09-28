@@ -1,11 +1,11 @@
 from dash import Dash,html
 
+def create_dashboard(server):
+    dash_app = Dash(__name__, server=server, url_base_pathname="/statistics/")
 
-app = Dash()
+    dash_app.layout = ([
+        html.Div(children="FinTrack")
+    ])
 
-app.layout = ([
-    html.Div(children="FinTrack")
-])
 
-if __name__  == "__main__":
-    app.run(debug=True)
+    return dash_app

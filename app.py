@@ -1,7 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from dashboard import create_dashboard
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'er7gh93478htuinfs9g834'
@@ -13,11 +12,13 @@ class Expense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(100))
     amount = db.Column(db.Float, nullable=False)
+    category = db.Column(db.String(50), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
-    def __init__(self, description, amount,date):
+    def __init__(self, description, amount,category ,date):
         self.description = description
         self.amount = float(amount)
+        self.category = category
         self.date = datetime.strptime(date, "%Y-%m-%d")
 
 @app.route("/")
@@ -30,15 +31,19 @@ def add_expense():
     if request.method == "POST":
         description = request.form['description']
         amount = request.form['amount']
+        category = request.form["category"]
         date = request.form['date']
 
-        my_data = Expense(description, amount, date)
+        my_data = Expense(description, amount, category, date)
         db.session.add(my_data)
         db.session.commit()
 
         return redirect(url_for('index'))
 
-create_dashboard(app)
+@app.route('/transactions')
+def show_transactions():
+    all_data =  Expense.query.all()
+    return render_template('transactions.html', expenses = all_data)
 
 if __name__ == '__main__':
     with app.app_context():

@@ -23,8 +23,35 @@ input {
 }
 
 .expence-container {
-  max-width: 20rem;
+  max-width: 23rem;
   border: 2px solid rgb(50, 163, 200);
-  padding: 15px;
+  padding: 18px;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 30%;
+  right: 8%;
+}
+
+.amount-date {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.description-input {
+  max-width: 100%;
+}
+
+.amount-input {
+  max-width: 9rem;
+}
+
+.date-input {
+  max-width: 9rem;
+}
+
+.category-input {
+  min-width: 100%;
+  margin-bottom: 12px;
   border-radius: 10px;
 }

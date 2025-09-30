@@ -43,20 +43,20 @@ def add_expense():
             missing_fields.append("Date")
 
         if missing_fields:
-            flash(f"Please fill out the following: {', '.join(missing_fields)}", "error")
+            flash(f"Please fill out the following: {', '.join(missing_fields)}", "danger")
             return redirect(url_for('index'))
         
         try:
             amount = float(amount)
         except ValueError:
-            flash(( "Amount must be a number","error"))
+            flash(( "Amount must be a number","danger"))
             return redirect(url_for('index'))
         
-        if date_str:
+        if date_str:         #this contradicts the missing field error catch 
             try: 
                 date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
             except ValueError:
-                flash("Invalid date format","error")
+                flash("Invalid date format","danger")
                 date_obj = date.today()
         else:
            date_obj = date.today()
@@ -66,7 +66,7 @@ def add_expense():
         my_data = Expense(description, amount, category, date_obj)
         db.session.add(my_data)
         db.session.commit()
-        flash("Expense successfully added!")
+        flash("Expense successfully added!", "success")
 
         return redirect(url_for('index'))
 

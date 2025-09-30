@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 app = Flask(__name__)
@@ -33,6 +33,18 @@ def add_expense():
         amount = request.form['amount']
         category = request.form["category"]
         date = request.form['date']
+
+        if not description or not amount or not category:
+            flash("Please fill out description, amount, category", "error")
+            return redirect(url_for('index'))
+        
+        try:
+            amount = float(amount)
+        except ValueError:
+            flash(( "Amount must be a number","error"))
+            return redirect(url_for('index'))
+
+        
 
         my_data = Expense(description, amount, category, date)
         db.session.add(my_data)

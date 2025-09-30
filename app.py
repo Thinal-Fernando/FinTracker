@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime,date
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'er7gh93478htuinfs9g834'
@@ -17,9 +17,9 @@ class Expense(db.Model):
 
     def __init__(self, description, amount,category ,date):
         self.description = description
-        self.amount = float(amount)
+        self.amount = amount
         self.category = category
-        self.date = datetime.strptime(date, "%Y-%m-%d")
+        self.date = date
 
 @app.route("/")
 def index():
@@ -32,7 +32,7 @@ def add_expense():
         description = request.form['description']
         amount = request.form['amount']
         category = request.form["category"]
-        date = request.form['date']
+        date_str = request.form['date']
 
         if not description or not amount or not category:
             flash("Please fill out description, amount, category", "error")
@@ -44,16 +44,21 @@ def add_expense():
             flash(( "Amount must be a number","error"))
             return redirect(url_for('index'))
         
-        try: 
-            date = datetime.strptime(date, "%Y-%m-%d").date()
-        except ValueError:
-           date = date.today
+        if date_str:
+            try: 
+                date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+            except ValueError:
+                flash("Invalid date format","error")
+                date_obj = date.today()
+        else:
+           date_obj = date.today()
 
-        
+            
 
-        my_data = Expense(description, amount, category, date)
+        my_data = Expense(description, amount, category, date_obj)
         db.session.add(my_data)
         db.session.commit()
+        flash("Expense successfully added!")
 
         return redirect(url_for('index'))
 

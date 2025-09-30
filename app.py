@@ -34,8 +34,16 @@ def add_expense():
         category = request.form["category"]
         date_str = request.form['date']
 
-        if not description or not amount or not category:
-            flash("Please fill out description, amount, category", "error")
+        missing_fields = []
+        if not description:
+            missing_fields.append("Description")
+        if not amount:
+            missing_fields.append("Amount")
+        if not date_str:
+            missing_fields.append("Date")
+
+        if missing_fields:
+            flash(f"Please fill out the following: {', '.join(missing_fields)}", "error")
             return redirect(url_for('index'))
         
         try:

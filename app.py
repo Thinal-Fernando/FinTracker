@@ -43,6 +43,11 @@ def add_expense():
         except ValueError:
             flash(( "Amount must be a number","error"))
             return redirect(url_for('index'))
+        
+        try: 
+            date = datetime.strptime(date, "%Y-%m-%d").date()
+        except ValueError:
+           date = date.today
 
         
 

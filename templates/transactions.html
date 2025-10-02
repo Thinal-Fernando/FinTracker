@@ -22,7 +22,9 @@
             <td>{{ row.category }}</td>
             <td>{{ row.date.strftime('%Y-%m-%d') }}</td>
             <td>
-              <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure You Want to Delete')">Delete</a>            </td>
+              <a href="/update/{{row.id}}" class="btn btn-warning btn-xs">Edit</a>
+              <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure You Want to Delete')">Delete</a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>

@@ -75,6 +75,24 @@ def show_transactions():
     all_data =  Expense.query.all()
     return render_template('transactions.html', expenses = all_data)
 
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    if request.method == "POST":
+        expense_data = Expense.query.get(request.form.get('id'))
+        expense_data.description = request.form['description']
+        expense_data.amount = request.form['amount']
+        expense_data.category = request.form['category']
+
+        date_str = request.form['date']
+        expense_data.date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        
+        db.session.commit()
+        flash("Employee Updated Successfully")
+
+        return redirect(url_for('show_transactions'))
+
+
 @app.route('/delete/<id>', methods = ['GET', 'POsT'])
 def delete(id):
     expense_data = Expense.query.get(id)

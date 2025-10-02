@@ -22,10 +22,94 @@
             <td>{{ row.category }}</td>
             <td>{{ row.date.strftime('%Y-%m-%d') }}</td>
             <td>
-              <a href="/update/{{row.id}}" class="btn btn-warning btn-xs">Edit</a>
-              <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure You Want to Delete')">Delete</a>
+              <a
+                href="/update/{{row.id}}"
+                class="btn btn-warning btn-xs"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-edit{{row.id}}"
+                >Edit</a
+              >
+              <a
+                href="/delete/{{row.id}}"
+                class="btn btn-danger btn-xs"
+                onclick="return confirm('Are You Sure You Want to Delete')"
+                >Delete</a
+              >
             </td>
           </tr>
+
+          <div id="modal-edit{{row.id}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Update Information</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="{{url_for('update')}}" method="POST">
+                    <div class="form-group">
+                      <label>Description:</label>
+                      <input type="hidden" name="id" value="{{row.id}}" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="description"
+                        value="{{row.description}}"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label>Amount:</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="amount"
+                        value="{{row.amount}}"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <select
+                        class="w-full category-input rounded-xl bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100"
+                        name="category"
+                        value="{{row.category}}"
+                      >
+                        <option>Food</option>
+                        <option>Transport</option>
+                        <option>Rent</option>
+                        <option>Utilities</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Date:</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="date"
+                        value="{{ row.date.strftime('%Y-%m-%d') }}"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">
+                        Update
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {% endfor %}
         </tbody>
       </table>

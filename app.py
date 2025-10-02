@@ -75,6 +75,14 @@ def show_transactions():
     all_data =  Expense.query.all()
     return render_template('transactions.html', expenses = all_data)
 
+@app.route('/delete/<id>', methods = ['GET', 'POsT'])
+def delete(id):
+    expense_data = Expense.query.get(id)
+    db.session.delete(expense_data)
+    db.session.commit()
+
+    return redirect(url_for('show_transactions'))
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

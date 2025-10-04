@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 
 <body class="min-vh-100 bg-dark text-light">
-  <main class="container-fluid px-4 py-5">
+  <main class="container-fluid px-4 py-5 legend">
     <h1 class="fw-semibold text-white mb-2 mt-2 ms-4">Dashboard</h1>
     <p class="text-secondary mb-4 ms-4">
       Track spending, filter by date/category, and visualize instantly.
@@ -27,8 +27,8 @@
             <input
               type="number"
               name="amount"
-              step="0.01"
-              min="0.01"
+              step="1"
+              min="1"
               placeholder="25.00"
               class="w-full amount-input rounded-xl bg-slate-800 border border-slate-700 px-3 py-2 text-slate-100"
             />
@@ -68,7 +68,7 @@
   </div>
 
 
-  <table class="table table-hover table-dark">
+  <table class="home-table table table-hover table-dark">
         <thead>
           <tr>
             <th>ID</th>

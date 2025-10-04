@@ -16,7 +16,7 @@
         <tbody>
           {% for row in expenses %}
           <tr>
-            <td>{{ row.id }}</td>
+            <td>{{ loop.index }}</td>
             <td>{{ row.description }}</td>
             <td>{{ row.amount }}</td>
             <td>{{ row.category }}</td>

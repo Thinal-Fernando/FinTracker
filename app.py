@@ -23,8 +23,8 @@ class Expense(db.Model):
 
 @app.route("/")
 def index():
-    all_data = Expense.query.all()
-    return render_template ('home.html' , expenses = all_data)
+    recent_expenses = Expense.query.order_by(Expense.id.desc()).limit(5).all()
+    return render_template ('home.html' , expenses = recent_expenses)
 
 @app.route('/add_expense', methods = ['POST'])
 def add_expense():

@@ -81,7 +81,7 @@
         <tbody>
           {% for row in expenses %}
           <tr>
-            <td>{{ loop.index }}</td>
+            <td>{{ loop.revindex }}</td>
             <td>{{ row.description }}</td>
             <td>{{ row.amount }}</td>
             <td>{{ row.category }}</td>
